@@ -347,6 +347,24 @@ function game(){
     },1000);
 }
 
+function checkWin() {
+    console.log(1)
+    const groupCell = [...document.querySelectorAll('.cell')];
+    let result = true;
+    let i = 1;
+    while(result && i < 8){
+        if(groupCell[i-1].textContent > groupCell[i].textContent){
+            result = false;
+        }
+        i++;
+    }
+    if (result) {
+        save.click();
+        alert('Вы выиграли!')
+        start.click();
+    }
+}
+
 let check=1;
 wrapper.addEventListener('click', (e)=>{
     if(startGame){
@@ -355,7 +373,6 @@ wrapper.addEventListener('click', (e)=>{
             for(let j=0; j<n; j++){
                 for(let i=0; i<n; i++){
                     if(array[j][i].innerText==a){
-                        
                         if(Math.abs(j-row)<=1 && Math.abs(i-column)<=1 && check && !(Math.abs(j-row)==1 && Math.abs(i-column)==1)){
                             valueMoves++;
                             check=0;
@@ -418,6 +435,7 @@ wrapper.addEventListener('click', (e)=>{
                 }
             }
         }
+        setTimeout(() => checkWin(), 500);
         check=1;
     }
 });
@@ -441,16 +459,3 @@ save.addEventListener('click', ()=>{
     const saveArr = JSON.stringify(saveA);
     localStorage.setItem("saveArr", saveArr);
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
